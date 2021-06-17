@@ -10,6 +10,10 @@ image:
   tag: 1.16.1-debian-10-r0
   pullPolicy: IfNotPresent
 
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
