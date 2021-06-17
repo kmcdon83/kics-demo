@@ -1,0 +1,32 @@
+name: KICS Push
+on:
+  push:
+    branches:
+      - main
+jobs:
+  kics-job:
+    runs-on: ubuntu-latest
+    name: kics
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: kics
+        uses: Checkmarx/kics-github-action@v1.2
+        with:
+          # paths to a file or directories to scan, accepts a comma separated list
+          path: terraform/aws/
+          ignore_on_exit: all
+          output_formats: sarif 
+          output_path: ./
+      - name: list
+        run: find .
+      - name: Expose report
+        uses: actions/upload-artifact@v2
+        with:
+          name: SARIF results
+          path: ./results.sarif
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: ./results.sarif
+
