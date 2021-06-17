@@ -14,7 +14,7 @@ jobs:
         uses: Checkmarx/kics-github-action@v1.2
         with:
           # paths to a file or directories to scan, accepts a comma separated list
-          path: terraform/aws/
+          path: ./
           ignore_on_exit: all
           output_formats: sarif 
           output_path: ./
